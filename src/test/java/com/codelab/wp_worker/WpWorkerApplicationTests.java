@@ -6,8 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class WpWorkerApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        WpWorkerApplication.main(new String[]{});
+    }
 
 }
