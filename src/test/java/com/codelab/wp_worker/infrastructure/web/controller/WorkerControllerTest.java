@@ -84,6 +84,21 @@ class WorkerControllerTest {
         verify(findWorkerByIdCase, times(1)).execute(99L);
     }
 
+    @Test
+    @DisplayName("Should return 500 when GET /workers/{id} is called and an unexpected error occurs")
+    void case04() {
+        when(findWorkerByIdCase.execute(1L)).thenThrow(new RuntimeException("Unexpected error"));
+
+        try {
+            mockMvc.perform(get("/api/v1/worker/{workerId}", 1L))
+                    .andExpect(status().isInternalServerError());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        verify(findWorkerByIdCase, times(1)).execute(1L);
+    }
+
     private List<Worker> workersList() {
         return List.of(
                 new Worker(1L, "Bob", 200.0),
